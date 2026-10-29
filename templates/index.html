@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATM Simulator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</head>
+<body>
+    <main class="atm-container">
+        <header class="topbar">
+            <a class="brand" href="#">
+                <span class="brand-icon">A</span>
+                <span>ATM<span class="brand-light"> Simulator</span></span>
+            </a>
+            <span class="secure-label"><span class="status-dot"></span> Secure Session</span>
+        </header>
+
+        <section id="loginScreen" class="login-screen">
+            <div class="login-icon">▣</div>
+            <p class="eyebrow">WELCOME BACK</p>
+            <h1>Access your account</h1>
+            <p class="muted">Enter your four-digit PIN to continue.</p>
+
+            <form id="loginForm">
+                <label for="pin">ATM PIN</label>
+                <input id="pin" type="password" inputmode="numeric"
+                       maxlength="4" pattern="[0-9]{4}"
+                       placeholder="••••" autocomplete="off" required>
+                <button class="btn btn-primary full-width" type="submit">
+                    Unlock Account <span>→</span>
+                </button>
+            </form>
+            <p id="loginMessage" class="message" aria-live="polite"></p>
+            <p class="demo-hint">Demo PIN: <strong>1234</strong></p>
+        </section>
+
+        <section id="dashboard" hidden>
+            <div class="welcome-row">
+                <div>
+                    <p class="eyebrow">PERSONAL BANKING</p>
+                    <h1>My Dashboard</h1>
+                    <p class="muted">Manage your money in one place.</p>
+                </div>
+                <button id="logoutBtn" class="btn btn-outline">Log out ↗</button>
+            </div>
+
+            <div class="balance-card">
+                <div class="balance-top">
+                    <span>Available balance</span>
+                    <span class="balance-symbol">◈</span>
+                </div>
+                <div id="balance" class="balance-amount">$1,000.00</div>
+                <div class="balance-bottom">
+                    <span>ATM ACCOUNT</span>
+                    <span>•••• •••• •••• 1234</span>
+                </div>
+            </div>
+
+            <section class="section">
+                <h2>Quick Actions</h2>
+                <p class="muted">Choose a transaction to get started.</p>
+
+                <div class="actions-grid">
+                    <button class="action-card" data-action="balance">
+                        <span class="action-icon blue">◉</span>
+                        <strong>Check Balance</strong>
+                        <span>View your funds</span>
+                    </button>
+                    <button class="action-card" data-action="deposit">
+                        <span class="action-icon green">↓</span>
+                        <strong>Deposit Money</strong>
+                        <span>Add funds</span>
+                    </button>
+                    <button class="action-card" data-action="withdraw">
+                        <span class="action-icon orange">↑</span>
+                        <strong>Withdraw Money</strong>
+                        <span>Take out cash</span>
+                    </button>
+                </div>
+            </section>
+
+            <section id="transactionPanel" class="transaction-panel" hidden>
+                <div class="panel-heading">
+                    <div>
+                        <p class="eyebrow">TRANSACTION</p>
+                        <h2 id="transactionTitle">Deposit Money</h2>
+                    </div>
+                    <button id="closePanel" class="close-btn" aria-label="Close">×</button>
+                </div>
+
+                <form id="transactionForm">
+                    <label for="amount">Amount (USD)</label>
+                    <div class="amount-input">
+                        <span>$</span>
+                        <input id="amount" type="number" min="0.01"
+                               max="1000000000000" step="0.01"
+                               placeholder="0.00" required>
+                    </div>
+                    <div class="quick-amounts">
+                        <button type="button" data-amount="50">$50</button>
+                        <button type="button" data-amount="100">$100</button>
+                        <button type="button" data-amount="200">$200</button>
+                        <button type="button" data-amount="500">$500</button>
+                    </div>
+                    <button id="submitTransaction" class="btn btn-primary full-width"
+                            type="submit">Confirm Transaction →</button>
+                </form>
+            </section>
+
+            <section class="section history-section">
+                <div class="history-heading">
+                    <div>
+                        <h2>Recent Transactions</h2>
+                        <p class="muted">Your latest account activity.</p>
+                    </div>
+                    <button id="refreshHistory" class="text-button">Refresh ↻</button>
+                </div>
+                <div id="historyList" class="history-list">
+                    <p class="empty-state">No transactions yet.</p>
+                </div>
+            </section>
+
+            <p id="dashboardMessage" class="message" aria-live="polite"></p>
+        </section>
+
+        <footer>
+            <span>ATM Simulator</span>
+            <span>Educational demo · Not a real bank</span>
+        </footer>
+    </main>
+</body>
+</html>
